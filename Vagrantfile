@@ -3,10 +3,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same key for each machine 
   config.ssh.insert_key = false
   config.vm.provider "virtualbox"
-#  config.vm.customize ["modifyvm", :id, "--memory", 1024, "--cpus", "1"]
+  config.vm.provider :virtualbox do|vb|
+    vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus","1"]
+  end
+
+#  config.vm.provider.customize ["modifyvm", :id, "--memory", 1024, "--cpus", "1"]
 #  To set virtual machine CPU's count use:
 
-  config.vm.customize ["modifyvm", :id, "--cpus", 1]
+#  config.vm.provider.customize ["modifyvm", :id, "--cpus", 1]
   #  config.vm.define "vagrant1"
 #  config.vm.define "vagrant2"
 #  config.vm.provision :ansible do |ansible|

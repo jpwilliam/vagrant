@@ -2,13 +2,18 @@
 - hosts: web
   become: yes
   tasks:
+  - name: update cache
+    ansible.builtin.apt:
+      cache_valid_time: 3600
+      update_cache: true
+
   - name: ensure ntpd is at the latest version
-    apt: name=ntp state=latest
+    ansible.builtin.apt: name=ntp state=latest
     notify:
     - restart ntpd
 
   - name: Install apche2 latest version
-    apt: name=apache state=latest
+    ansible.builtin.apt: name=apache2 state=latest
  
   handlers:
   - name: restart ntpd

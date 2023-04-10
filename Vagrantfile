@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.groups = {
       "web" => ["vagrant1"],
       "db" => ["vagrant2"],
-      "group3" => ["vagrant[1:2]"]
+      "all" => ["vagrant[1:2]"]
     }  
   end
 end

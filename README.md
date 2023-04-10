@@ -70,3 +70,9 @@ Dans la deuxième partie du fichier on va installer  le package `ntp` sur les VM
   - name: restart ntpd
     service: name=ntpd state=restarted
 ```
+
+Pour provisionner les VM, vous pouvez taper la commande suivante:
+
+```bash
+vagrant provision
+```

@@ -9,5 +9,5 @@ vagrant1
 [db]
 vagrant2
 
-[group3]
+[all]
 vagrant[1:2]

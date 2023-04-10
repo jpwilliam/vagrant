@@ -1,0 +1,16 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+  - name: ensure ntpd is at the latest version
+    apt: name=ntp state=latest
+    notify:
+    - restart ntpd
+
+  - name: Install apche2 latest version
+    apt: name=apache state=latest
+ 
+  handlers:
+  - name: restart ntpd
+    service: name=ntpd state=restarted
+

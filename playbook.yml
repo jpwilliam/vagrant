@@ -10,7 +10,7 @@
   - name: Install apache2 latest version
     ansible.builtin.apt: name=apache2 state=latest
 
-- hosts: group3
+- hosts: all
   become: yes
   tasks:
   - name: ensure ntpd is at the latest version

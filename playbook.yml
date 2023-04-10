@@ -7,14 +7,18 @@
       cache_valid_time: 3600
       update_cache: true
 
+  - name: Install apache2 latest version
+    ansible.builtin.apt: name=apache2 state=latest
+
+- hosts: group3
+  become: yes
+  tasks:
   - name: ensure ntpd is at the latest version
     ansible.builtin.apt: name=ntp state=latest
     notify:
     - restart ntpd
 
-  - name: Install apche2 latest version
-    ansible.builtin.apt: name=apache2 state=latest
- 
+
   handlers:
   - name: restart ntpd
     service: name=ntpd state=restarted

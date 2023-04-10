@@ -29,10 +29,44 @@ config.vm.provision :ansible do |ansible|
     ansible.groups = {
       "web" => ["vagrant1"],
       "db" => ["vagrant2"],
-      "group3" => ["vagrant[1:2]"]
+      "all" => ["vagrant[1:2]"]
     }
   end
 ```
 
-Cette entrée permet de créer des groupes composants les VM indiquées. Le fichier `playbook.yml` contient les informations qui seront appliquées aux différentes VM. Dans le cas présent nous allons installer le package `apache2` sur la VM `vagrant1` qui compose le groupe `web` 
+Cette entrée permet de créer des groupes composants les VM indiquées.
 
+Le fichier `playbook.yml` contient les informations qui seront appliquées aux différentes VM. Dans le cas présent nous allons installer le package `apache2` sur la VM `vagrant1` qui compose le groupe `web` 
+
+
+Le fichier `playbook.yml` contient les informations qui seront appliquées aux différentes VM. Dans le cas présent nous allons installer le package `apache2` sur la VM `vagrant1` qui compose le groupe `web`.
+
+```yaml
+---
+- hosts: web
+  become: yes
+  tasks:
+  - name: update cache
+    ansible.builtin.apt:
+      cache_valid_time: 3600
+      update_cache: true
+
+  - name: Install apache2 latest version
+    ansible.builtin.apt: name=apache2 state=latest
+```
+
+Dans la deuxième partie du fichier on va installer  le package `ntp` sur les VM du groupe `all' composé de toutes les VM (vagrant1 et vagrant2).
+
+```yaml
+- hosts: all)
+  become: yes
+  tasks:
+  - name: ensure ntpd is at the latest version
+    ansible.builtin.apt: name=ntp state=latest
+    notify:
+    - restart ntpd
+
+  handlers:
+  - name: restart ntpd
+    service: name=ntpd state=restarted
+```

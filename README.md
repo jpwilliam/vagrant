@@ -58,7 +58,7 @@ Le fichier `playbook.yml` contient les informations qui seront appliquées aux d
 Dans la deuxième partie du fichier on va installer  le package `ntp` sur les VM du groupe `all' composé de toutes les VM (vagrant1 et vagrant2).
 
 ```yaml
-- hosts: all)
+- hosts: all
   become: yes
   tasks:
   - name: ensure ntpd is at the latest version

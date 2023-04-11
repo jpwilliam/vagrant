@@ -9,16 +9,24 @@
 
   - name: Install apache2 latest version
     ansible.builtin.apt: 
-      name=apache2 
-      state=latest
+      name: apache2 
+      state: latest
+  
+  - name: Copy template
+    ansible.builtin.template: 
+      src: index.html.j2
+      dest: /var/www/html/index.html
+      mode: 0644
+      owner: root
+      group: root
 
 - hosts: all
   become: yes
   tasks:
   - name: ensure ntpd is at the latest version
     ansible.builtin.apt: 
-      name=ntp 
-      state=latest
+      name: ntp 
+      state: latest
     notify:
     - restart ntpd
 
@@ -26,6 +34,11 @@
   handlers:
   - name: restart ntpd
     service: 
-      name=ntpd 
-      state=restarted
+      name: ntpd 
+      state: restarted
+  
+  - name: restart apache
+    service: 
+      name: apache2
+      state: restarted
 

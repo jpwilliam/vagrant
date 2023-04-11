@@ -52,7 +52,9 @@ Le fichier `playbook.yml` contient les informations qui seront appliquées aux d
       update_cache: true
 
   - name: Install apache2 latest version
-    ansible.builtin.apt: name=apache2 state=latest
+    ansible.builtin.apt: 
+      name: apache2
+      state: latest
 ```
 
 Dans la deuxième partie du fichier on va installer  le package `ntp` sur les VM du groupe `all' composé de toutes les VM (vagrant1 et vagrant2).
@@ -62,13 +64,17 @@ Dans la deuxième partie du fichier on va installer  le package `ntp` sur les VM
   become: yes
   tasks:
   - name: ensure ntpd is at the latest version
-    ansible.builtin.apt: name=ntp state=latest
+    ansible.builtin.apt: 
+      name: ntp
+      state: latest
     notify:
     - restart ntpd
 
   handlers:
   - name: restart ntpd
-    service: name=ntpd state=restarted
+    service: 
+      name: ntpd 
+      state: restarted
 ```
 
 Pour provisionner les VM, vous pouvez taper la commande suivante:
